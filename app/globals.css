@@ -2,20 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-def), sans-serif;
+	font-weight: normal;
+	font-size: 1rem;
+	color: var(--txtcol);
+	background-color: var(--subcol);
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin: 0;
+	width: 100vw;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+@layer utilities {
+	.text-balance {
+		text-wrap: balance;
+	}
+
+	.def-pdg {
+		@apply px-4
+		md:px-8
+		lg:px-10;
+	}
+
+	.na-pdg {
+		@apply -mx-4
+		md:-mx-8
+		lg:-mx-10;
+	}
+
+	.no-scroll {
+		scroll-margin: 0;
+		scrollbar-width: none;
+	}
+
+	.hover-fade {
+		@apply cursor-pointer hover:opacity-80 transition-all duration-300 ease-in-out;
+	}
+}
+
+:root {
+	--txtcol: #dfcfb7;
+	--defcol: #000000;
+	--pricol: #645452;
+	--seccol: #dfcfb7;
+	--subcol: #645452;
+}
+
+.ins-shad {
+	box-shadow: inset 0px 0px 20px 10px rgba(100, 84, 82, 0.21);
 }
