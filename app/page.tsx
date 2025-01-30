@@ -1,19 +1,24 @@
 "use client"
 import { useScroll } from "@/hooks/useScroll"
-import Logolg from "@/public/icons/logo_lg"
+import Exodus from "@/public/icons/exodus"
 import Logosm from "@/public/icons/logo_sm"
 import Logotxt from "@/public/icons/logo_txt"
 import { vurl } from "@/resources/constants/vurl"
 import Link from "next/link"
+import { useRef } from "react"
 import { BsArrowUpRight, BsFillCheckCircleFill } from "react-icons/bs"
+import useHomeAnimations from "./animations"
 
 export default function Home() {
 	const { scrollY } = useScroll()
+	const container = useRef<any>(null)
 	// const media_lg = useMediaQuery({ minWidth: "1024px" })
 	// const media_md = useMediaQuery({ minWidth: "800px" })
 
+	useHomeAnimations(container)
+
 	return (
-		<section className="w-full max-w-[1440px] def-pdg">
+		<section className="w-full max-w-[1440px] def-pdg" ref={container}>
 			<nav
 				className={
 					scrollY <= 15
@@ -31,13 +36,13 @@ export default function Home() {
 					</span>
 				</div>
 
-				<div className="size-full hidden py-2 md:fl-cl md:fl-sb gap-4">
-					<Link href={"/"} className="fl-cc gap-1 relative hover-fade">
+				<div className="size-full hidden py-2 md:grid md:grid-cols-[0.5fr_2fr_3fr] xl:grid-cols-3">
+					<Link href={"/"} className="fl-cl gap-1 relative hover-fade">
 						<Logosm className="size-[28px]" />
 						<Logotxt className="hidden xl:inline-block absolute left-0" />
 					</Link>
 
-					<span className="uppercase font-mono text-sm grid grid-cols-2 w-[252px] h-[32px] rounded-sm cursor-pointer items-center relative border border-txtcol overflow-hidden">
+					<span className="uppercase font-mono text-sm grid grid-cols-2 w-[252px] h-[32px] rounded-sm cursor-pointer items-center relative border border-txtcol overflow-hidden mx-auto">
 						<span className="absolute w-[126px] z-10  left-0 top-0 bottom-0 bg-txtcol"></span>
 						<span className="size-full fl-cc text-pricol text-center self-stretch relative z-20">
 							your users
@@ -47,10 +52,10 @@ export default function Home() {
 						</span>
 					</span>
 
-					<span className="uppercase fl-cr gap-4 font-mono text-sm">
-						<Link href={""}>docs</Link>
-						<Link href={""}>playground</Link>
-						<Link href={""}>wallet</Link>
+					<span className="uppercase fl-cr gap-4 font-mono text-sm w-full">
+						<Link href={`${vurl}/docs`}>docs</Link>
+						<Link href={`${vurl}/playground`}>playground</Link>
+						<Link href={"https://wallet.passkeys.foundation"}>wallet</Link>
 						<button className="py-1 px-4 rounded-sm bg-txtcol text-pricol hover:bg-defcol hover:text-txtcol duration-300 cursor-pointer uppercase text-sm text-center fl-cc">
 							start building
 						</button>
@@ -59,29 +64,42 @@ export default function Home() {
 			</nav>
 
 			<section className="w-full h-svh overflow-hidden fl-cr fl-c">
-				<div className="w-full fl-tl fl-c gap-4 pb-8">
+				<div className="w-full fl-tl fl-c gap-4 pb-8 invisible anihero">
 					<small className="text-xs uppercase font-medium font-mono">
 						[000. WHERE IT ALL STARTS]
 					</small>
-					<h1 className="uppercase text-[40px] font-bold w-full md:text-[88px] leading-[0.8]">
-						One-click Web3 onboarding with Passkeys Developer kit
-					</h1>
+					<div className="w-full relative">
+						<h1 className="uppercase text-[40px] font-bold w-full md:text-[88px] leading-[0.8]">
+							One-click Web3 <br className="hidden lg:inline-block" />
+							onboarding with <br className="hidden lg:inline-block" />
+							Passkeys Developer kit
+						</h1>
+						<span className="hidden lg:fl-cr absolute right-0 bottom-0 gap-2">
+							<span className="text-xs">BY</span> <Exodus />
+						</span>
+					</div>
 					<div className="w-full fl-tl fl-c gap-4 md:fl-r md:fl-cl md:border-y md:border-txtcol md:gap-0">
 						<div className="fl-cl border-y border-txtcol md:border-y-0 md:border-r py-4 md:py-8 w-full md:w-[45%] md:flex-grow">
-							<p className="text-2xl leading-[1.1] md:text-[32px]">
+							<p className="text-2xl leading-[1.1] md:text-[32px] invisible anisubh1">
 								Simplify wallet creation and funding for new{" "}
 								<br className="hidden lg:inline-block" /> web3 users through
 								biometric login
 							</p>
 						</div>
-						<div className="w-full grid grid-cols-2 gap-2 md:w-[55%] md:p-8 max-w-[418px]">
-							<button className="w-full text-sm p-3 fl-cc gap-1 text-center font-mono rounded-sm bg-txtcol cursor-pointer border border-txtcol text-pricol hover:text-txtcol hover:border-defcol hover:bg-defcol duration-300">
+						<div className="w-full grid grid-cols-2 gap-2 md:w-[55%] md:p-8 max-w-[418px] invisible aniherocta">
+							<Link
+								href={`${vurl}/playground`}
+								className="w-full text-sm p-3 fl-cc gap-1 text-center font-mono rounded-sm bg-txtcol cursor-pointer border border-txtcol text-pricol hover:text-txtcol hover:border-defcol hover:bg-defcol duration-300"
+							>
 								<span>PLAYGROUND</span>
 								<BsArrowUpRight />
-							</button>
-							<button className="w-full text-sm p-3 fl-cc gap-1 text-center font-mono rounded-sm bg-transparent cursor-pointer border border-txtcol text-txtcol hover:text-txtcol hover:border-defcol hover:bg-defcol duration-300">
+							</Link>
+							<Link
+								href={`${vurl}/docs`}
+								className="w-full text-sm p-3 fl-cc gap-1 text-center font-mono rounded-sm bg-transparent cursor-pointer border border-txtcol text-txtcol hover:text-txtcol hover:border-defcol hover:bg-defcol duration-300"
+							>
 								<span>DEVELOPER DOCS</span>
-							</button>
+							</Link>
 						</div>
 					</div>
 				</div>
@@ -92,14 +110,14 @@ export default function Home() {
 					<small className="text-xs uppercase font-medium font-mono">
 						[001. SIMPLE SIGNUP]
 					</small>
-					<h3 className="text-[2rem] md:text-[88px] md:leading-[0.95] leading-none md:font-medium">
+					<h3 className="text-[2rem] md:text-[88px] md:leading-[0.95] leading-none md:font-medium ani001h1">
 						Stop new user drop off with just a few lines of code.{" "}
 					</h3>
-					<h3 className="text-[2rem] md:text-[88px] md:leading-[0.95] leading-none md:font-medium">
+					<h3 className="text-[2rem] md:text-[88px] md:leading-[0.95] leading-none md:font-medium ani001h2">
 						Reduce churn and empower new users to start transacting without
 						leaving your platform.{" "}
 					</h3>
-					<ul className="fl-tl fl-c w-full list-none gap-4 pt-12">
+					<ul className="fl-tl fl-c w-full list-none gap-4 pt-12 ani001ul">
 						<li className="fl-tl w-full gap-2">
 							<BsFillCheckCircleFill className="size-5 mt-2" />
 							<span className="text-lg md:text-[2rem] w-1/2 flex-grow">
@@ -127,15 +145,15 @@ export default function Home() {
 				<div className="w-[330px] bg-defcol aspect-[0.595/1] rounded-[2.5rem] relative overflow-hidden fl-cc mx-auto md:ml-auto md:mr-0">
 					<video
 						src="/videos/video_i.webm"
-						autoPlay
 						loop
-						className="aspect-[0.6/1] max-w-[300px] overflow-hidden object-cover object-center "
+						muted
+						className="aspect-[0.6/1] max-w-[300px] overflow-hidden object-cover object-center pskvid"
 					></video>
 				</div>
 			</section>
 
 			<section className="w-full fl-tl fl-c gap-6 md:fl-bl md:fl-r border-b border-txtcol py-12">
-				<div className="w-full fl-tl fl-c gap-6 max-w-[643px]">
+				<div className="w-full fl-tl fl-c gap-6 max-w-[643px] ani002con invisible">
 					<small className="text-xs uppercase font-medium font-mono">
 						[002. FUNDING]
 					</small>
@@ -157,15 +175,15 @@ export default function Home() {
 				<div className="w-[330px] bg-defcol aspect-[0.6/1] rounded-[2.5rem] relative overflow-hidden fl-cc mx-auto md:ml-auto md:mr-0">
 					<video
 						src="/videos/video_ii.webm"
-						autoPlay
 						loop
-						className="aspect-[0.6/1] max-w-[300px] overflow-hidden object-cover object-center "
+						muted
+						className="aspect-[0.6/1] max-w-[300px] overflow-hidden object-cover object-center  pskvid"
 					></video>
 				</div>
 			</section>
 
 			<section className="w-full fl-tl fl-c gap-6 md:fl-bl md:fl-r border-b border-txtcol py-12">
-				<div className="w-full fl-tl fl-c gap-6 max-w-[643px]">
+				<div className="w-full fl-tl fl-c gap-6 max-w-[643px] ani003con invisible">
 					<small className="text-xs uppercase font-medium font-mono">
 						[003. LIQUIDITY]
 					</small>
@@ -187,15 +205,15 @@ export default function Home() {
 				<div className="w-full max-w-[640px] bg-defcol aspect-[1.326/1] xl:aspect-[1.326/1.02] rounded-[2.75rem] relative overflow-hidden fl-cc mx-auto md:ml-auto md:mr-0">
 					<video
 						src="/videos/video_iii.webm"
-						autoPlay
+						muted
 						loop
-						className="aspect-[1.326/1] max-w-[600px] overflow-hidden object-cover object-center "
+						className="aspect-[1.326/1] max-w-[600px] overflow-hidden object-cover object-center  pskvid"
 					></video>
 				</div>
 			</section>
 
 			<section className="w-full fl-tl fl-c gap-6 md:fl-bl md:fl-r border-b border-txtcol py-12">
-				<div className="w-full fl-tl fl-c gap-6 max-w-[643px]">
+				<div className="w-full fl-tl fl-c gap-6 max-w-[643px] ani004con invisible">
 					<small className="text-xs uppercase font-medium font-mono">
 						[004. CROSS-APPLICATION]
 					</small>
@@ -217,7 +235,7 @@ export default function Home() {
 			</section>
 
 			<section className="w-full fl-tl fl-c gap-6 md:fl-cl border-b border-txtcol py-12">
-				<div className="w-full fl-cl fl-c gap-6 max-w-[643px] mx-auto text-center">
+				<div className="w-full fl-cl fl-c gap-6 max-w-[643px] mx-auto text-center ani005con invisible">
 					<small className="text-xs uppercase font-medium font-mono">
 						[005. Free Your Team]
 					</small>
@@ -232,9 +250,9 @@ export default function Home() {
 				<div className="w-full bg-pricol aspect-[2.35/1] rounded-md relative overflow-hidden fl-cc mx-auto md:ml-auto md:mr-0 mt-12">
 					<video
 						src="/videos/video_iv.mp4"
-						autoPlay
+						muted
 						loop
-						className="aspect-[2.35/1] w-full overflow-hidden object-cover object-center "
+						className="aspect-[2.35/1] w-full overflow-hidden object-cover object-center pskvid"
 					></video>
 				</div>
 			</section>
@@ -292,9 +310,9 @@ export default function Home() {
 									<div className="w-full rounded-md overflow-hidden bg-[#F7E5E9]">
 										<video
 											src={e.src}
-											className="w-full aspect-[1.586/1] object-cover object-center"
+											className="w-full aspect-[1.586/1] object-cover object-center pskvid"
 											loop
-											autoPlay
+											muted
 										></video>
 									</div>
 									<div className="w-full fl-tl text-defcol fl-c gap-10 self-stretch">
@@ -321,9 +339,9 @@ export default function Home() {
 
 			<footer className="w-auto na-pdg">
 				<div className="w-screen px-4 pb-8">
-					<div className="w-full rounded-sm bg-txtcol text-pricol fl-tl fl-c relative p-4 overflow-hidden">
+					<div className="w-full rounded-sm bg-txtcol text-pricol fl-tl fl-c relative p-4 overflow-hidden anifootercon">
 						<div className="w-full fl-tl fl-c gap-4 pb-6 border-b border-pricol md:fl-r md:fl-bl md:fl-sb">
-							<div className="w-full fl-tl fl-c h-[110vw] max-h-[600px] fl-sb md:h-[unset] md:gap-8">
+							<div className="w-full fl-tl fl-c h-[110vw] max-h-[600px] fl-sb md:h-[unset] md:gap-8 anifooterhcon invisible">
 								<h2 className="text-[2rem] md:text-[3.5rem] max-w-[780px] leading-[0.95] w-[82%] md:w-full">
 									Embrace the future of crypto with the Passkeys Developer Kit.
 								</h2>
@@ -333,19 +351,22 @@ export default function Home() {
 								</p>
 							</div>
 
-							<div className="w-full grid grid-cols-2 gap-2 md:max-w-[394px]">
+							<div className="w-full grid grid-cols-1 [@media(min-width:400px)]:grid-cols-2 gap-2 md:max-w-[394px] anifootercta invisible">
 								<button className="w-full uppercase text-sm p-3 fl-cc gap-1 text-center font-mono rounded-sm bg-pricol cursor-pointer border border-pricol text-txtcol hover:text-txtcol hover:border-defcol hover:bg-defcol duration-300">
 									<span>start building</span>
 									<BsArrowUpRight />
 								</button>
-								<button className="w-full text-sm p-3 fl-cc gap-1 text-center font-mono rounded-sm bg-transparent cursor-pointer border border-pricol text-pricol hover:text-txtcol hover:border-defcol hover:bg-defcol duration-300 uppercase">
+								<Link
+									href={`${vurl}/playground`}
+									className="w-full text-sm p-3 fl-cc gap-1 text-center font-mono rounded-sm bg-transparent cursor-pointer border border-pricol text-pricol hover:text-txtcol hover:border-defcol hover:bg-defcol duration-300 uppercase"
+								>
 									<span>playground</span>
 									<BsArrowUpRight />
-								</button>
+								</Link>
 							</div>
 						</div>
 						<div className="w-full fl-br fl-sb gap-4 mt-10 md:mt-[10rem]">
-							<Logosm className="size-[5.25rem] md:hidden" />
+							<Logosm className="size-[5.25rem] md:hidden anifooterlogo invisible" />
 							<div className="fl-tl fl-c gap-10 w-1/2 text-sm max-w-[500px] md:ml-auto md:flex-row-reverse md:fl-br">
 								<ul className="fl-tl fl-c gap-3 w-full md:fl-r md:w-1/2 md:flex-grow md:fl-sb">
 									<li>
@@ -364,7 +385,7 @@ export default function Home() {
 							</div>
 						</div>
 						<div className="absolute -bottom-[3rem] left-4 hidden md:block md:fl-cc">
-							<Logosm className="size-[12rem]" />
+							<Logosm className="size-[12rem] anifooterlogo invisible" />
 						</div>
 					</div>
 				</div>
