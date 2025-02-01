@@ -5,18 +5,27 @@ import Logosm from "@/public/icons/logo_sm"
 import Logotxt from "@/public/icons/logo_txt"
 import { vurl } from "@/resources/constants/vurl"
 import Link from "next/link"
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { BsArrowUpRight, BsFillCheckCircleFill } from "react-icons/bs"
 import useHomeAnimations from "./animations"
 
 export default function Home() {
 	const { scrollY } = useScroll()
 	const container = useRef<any>(null)
-	// const media_lg = useMediaQuery({ minWidth: "1024px" })
-	// const media_md = useMediaQuery({ minWidth: "800px" })
+	const [_is_menu_open, set_is_menu_open] = useState(false)
+	let drpd = useRef<any>(null)
+	const toggle_menu = () => {
+		set_is_menu_open(!_is_menu_open)
+	}
 
-	useHomeAnimations(container)
-
+	useHomeAnimations(container, drpd)
+	useEffect(() => {
+		if (_is_menu_open) {
+			drpd.current.play()
+		} else {
+			drpd.current.reverse()
+		}
+	}, [_is_menu_open])
 	return (
 		<section className="w-full max-w-[1440px] def-pdg" ref={container}>
 			<nav
@@ -30,7 +39,12 @@ export default function Home() {
 					<Link href={"/"} className="fl-cc">
 						<Logosm className="size-[28px]" />
 					</Link>
-					<span className="cursor-pointer fl-cl fl-c gap-2 hover-fade">
+					<span
+						className="cursor-pointer fl-cl fl-c gap-2 hover-fade"
+						onClick={() => {
+							toggle_menu()
+						}}
+					>
 						<span className="h-[2px] w-[30px] bg-txtcol"></span>
 						<span className="h-[2px] w-[30px] bg-txtcol"></span>
 					</span>
@@ -62,6 +76,110 @@ export default function Home() {
 					</span>
 				</div>
 			</nav>
+
+			<div
+				id="mobmenu"
+				className="mobmenuclip fixed z-50 left-0 right-0 bottom-0 top-0 bg-seccol fl-cc p-4 animobmenu h-svh w-screen"
+			>
+				<div className="size-full fl-tl fl-c gap-2 fl-sb text-black">
+					<div className="w-full py-2 fl-cl fl-sb gap-4">
+						<Link
+							href={"/"}
+							className="fl-cc"
+							onClick={() => {
+								set_is_menu_open(false)
+							}}
+						>
+							<Logosm className="size-[28px]" />
+						</Link>
+						<span
+							className="text-sm tracking-widest hover-fade"
+							onClick={() => {
+								toggle_menu()
+							}}
+						>
+							[CLOSE]
+						</span>
+					</div>
+
+					<div className="fl-tl fl-c w-full">
+						<div className="fl-tl fl-c w-full">
+							<small className="animobmajlink text-xs uppercase font-medium font-mono">
+								[MENU]
+							</small>
+							<div className="w-full fl-tl fl-c gap-1 mt-2">
+								<Link
+									href={""}
+									className="animobmajlink text-4xl font-bold uppercase border-b pb-1 border-pricol fl-bl fl-sb w-full"
+									onClick={() => {
+										set_is_menu_open(false)
+									}}
+								>
+									<span>start building</span>{" "}
+									<BsArrowUpRight className="size-6" />
+								</Link>
+								<Link
+									href={`${vurl}/docs`}
+									className="animobmajlink text-4xl font-bold uppercase border-b pb-1 border-pricol fl-bl fl-sb w-full"
+									onClick={() => {
+										set_is_menu_open(false)
+									}}
+								>
+									<span>developer docs</span>{" "}
+									<BsArrowUpRight className="size-6" />
+								</Link>
+								<Link
+									href={`${vurl}/playground`}
+									className="animobmajlink text-4xl font-bold uppercase border-b pb-1 border-pricol fl-bl fl-sb w-full"
+									onClick={() => {
+										set_is_menu_open(false)
+									}}
+								>
+									<span>playground</span> <BsArrowUpRight className="size-6" />
+								</Link>
+								<Link
+									href={"https://wallet.passkeys.foundation"}
+									className="animobmajlink text-4xl font-bold uppercase border-b pb-1 border-pricol fl-bl fl-sb w-full"
+									onClick={() => {
+										set_is_menu_open(false)
+									}}
+								>
+									<span>wallet</span> <BsArrowUpRight className="size-6" />
+								</Link>
+							</div>
+						</div>
+						<div className="w-full fl-tl fl-c mt-[4rem]">
+							<small className="animobmajlink text-xs uppercase font-medium font-mono">
+								[passkey features]
+							</small>
+							<div className="w-full fl-tl fl-c gap-1 mt-2">
+								<Link
+									href={`${vurl}#your-users`}
+									className="animobmajlink w-full  border-b border-pricol pb-1 text-2xl"
+									onClick={() => {
+										set_is_menu_open(false)
+									}}
+								>
+									For users
+								</Link>
+								<Link
+									href={`${vurl}#your-devs`}
+									className="animobmajlink w-full  border-b border-pricol pb-1 text-2xl"
+									onClick={() => {
+										set_is_menu_open(false)
+									}}
+								>
+									For developers
+								</Link>
+							</div>
+						</div>
+						<div className="fl-bl fl-sb gap-2 w-full mt-[3rem] animobmenufooter">
+							<Logosm className="size-[6rem] animobmenulogo" />
+							<small className="text-sm">©{new Date().getFullYear()} THT</small>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<section className="w-full h-svh overflow-hidden fl-cr fl-c">
 				<div className="w-full fl-tl fl-c gap-4 pb-8 invisible anihero">
@@ -105,7 +223,10 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section className="w-full fl-tl fl-c gap-6 md:fl-bl md:fl-r border-b border-txtcol pb-12">
+			<section
+				className="w-full fl-tl fl-c gap-6 md:fl-bl md:fl-r border-b border-txtcol pb-12"
+				id="your-users"
+			>
 				<div className="w-full fl-tl fl-c gap-6 md:max-w-[771px] md:w-2/3 md:flex-grow">
 					<small className="text-xs uppercase font-medium font-mono">
 						[001. SIMPLE SIGNUP]
@@ -234,7 +355,10 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section className="w-full fl-tl fl-c gap-6 md:fl-cl border-b border-txtcol py-12">
+			<section
+				className="w-full fl-tl fl-c gap-6 md:fl-cl border-b border-txtcol py-12"
+				id="your-devs"
+			>
 				<div className="w-full fl-cl fl-c gap-6 max-w-[643px] mx-auto text-center ani005con invisible">
 					<small className="text-xs uppercase font-medium font-mono">
 						[005. Free Your Team]
@@ -345,7 +469,7 @@ export default function Home() {
 								<h2 className="text-[2rem] md:text-[3.5rem] max-w-[780px] leading-[0.95] w-[82%] md:w-full">
 									Embrace the future of crypto with the Passkeys Developer Kit.
 								</h2>
-								<p className="text-xl md:text-[2rem] leading-[1.2] max-w-[510px]">
+								<p className="text-xl md:text-[2rem] leading-[1.2] max-w-[510px] font-normal">
 									Start building now or experience how Passkeys can help you
 									reduce drop-off in our playground.
 								</p>
@@ -370,13 +494,15 @@ export default function Home() {
 							<div className="fl-tl fl-c gap-10 w-1/2 text-sm max-w-[500px] md:ml-auto md:flex-row-reverse md:fl-br">
 								<ul className="fl-tl fl-c gap-3 w-full md:fl-r md:w-1/2 md:flex-grow md:fl-sb">
 									<li>
-										<Link href={""}>Developer Docs</Link>
+										<Link href={`${vurl}/docs`}>Developer Docs</Link>
 									</li>
 									<li>
-										<Link href={""}>Terms of Service</Link>
+										<Link href={`${vurl}/legal/terms`}>Terms of Service</Link>
 									</li>
 									<li>
-										<Link href={""}>Privacy Policy</Link>
+										<Link href={`${vurl}/legal/privacy-policy`}>
+											Privacy Policy
+										</Link>
 									</li>
 								</ul>
 								<small className="text-xs">

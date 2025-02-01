@@ -4,11 +4,49 @@ import SplitType from "split-type"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-export default function useHomeAnimations(scope: RefObject<any>) {
+export default function useHomeAnimations(
+	scope: RefObject<any>,
+	drpd: RefObject<any>
+) {
 	gsap.registerPlugin(useGSAP)
 	gsap.registerPlugin(ScrollTrigger)
+
 	useGSAP(
 		() => {
+			drpd.current = gsap
+				.timeline({ paused: true })
+				.to(".animobmenu", {
+					duration: 1.25,
+					clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0 100%)",
+					ease: "power4.inOut",
+				})
+				.from(".animobmajlink", {
+					x: 75,
+					opacity: 0,
+					duration: 1,
+					stagger: 0.08,
+					ease: "power4.inOut",
+					delay: -0.75,
+				})
+				.from(".animobmenufooter", {
+					y: 40,
+					opacity: 0,
+					duration: 1,
+					ease: "power4.inOut",
+					delay: -0.6,
+				})
+				.from(
+					".animobmenulogo",
+					{
+						rotateZ: -720,
+						opacity: 0,
+						ease: "back(1.7)",
+						autoAlpha: 0,
+						duration: 1,
+					},
+					"<"
+				)
+
 			let herotl = gsap.timeline()
 			herotl
 				.from(".anihero", {

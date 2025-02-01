@@ -62,6 +62,6 @@ a {
 	--subcol: #645452;
 }
 
-.ins-shad {
-	box-shadow: inset 0px 0px 20px 10px rgba(100, 84, 82, 0.21);
+.mobmenuclip {
+	clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
 }

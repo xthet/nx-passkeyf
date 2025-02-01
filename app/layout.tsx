@@ -38,7 +38,7 @@ const neue_montreal = NeueMontreal({
 		},
 	],
 	variable: "--font-def",
-	display: "swap",
+	// display: "swap",
 })
 
 const ibm_plex_mono = IBM_Plex_Mono({
