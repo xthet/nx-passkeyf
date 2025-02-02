@@ -79,7 +79,7 @@ export default function Home() {
 
 			<div
 				id="mobmenu"
-				className="mobmenuclip fixed z-50 left-0 right-0 bottom-0 top-0 bg-seccol fl-cc p-4 animobmenu h-svh w-screen"
+				className="mobmenuclip fixed z-50 left-0 right-0 bottom-0 top-0 bg-seccol fl-cc p-4 animobmenu"
 			>
 				<div className="size-full fl-tl fl-c gap-2 fl-sb text-black">
 					<div className="w-full py-2 fl-cl fl-sb gap-4">
@@ -93,7 +93,7 @@ export default function Home() {
 							<Logosm className="size-[28px]" />
 						</Link>
 						<span
-							className="text-sm tracking-widest hover-fade"
+							className="text-sm tracking-wider select-none hover-fade font-mono"
 							onClick={() => {
 								toggle_menu()
 							}}
@@ -154,7 +154,7 @@ export default function Home() {
 							</small>
 							<div className="w-full fl-tl fl-c gap-1 mt-2">
 								<Link
-									href={`${vurl}#your-users`}
+									href={`#your-users`}
 									className="animobmajlink w-full  border-b border-pricol pb-1 text-2xl"
 									onClick={() => {
 										set_is_menu_open(false)
@@ -163,7 +163,7 @@ export default function Home() {
 									For users
 								</Link>
 								<Link
-									href={`${vurl}#your-devs`}
+									href={`#your-devs`}
 									className="animobmajlink w-full  border-b border-pricol pb-1 text-2xl"
 									onClick={() => {
 										set_is_menu_open(false)
