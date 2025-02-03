@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { IBM_Plex_Mono } from "next/font/google"
 import NeueMontreal from "next/font/local"
 import "./globals.css"
+import { get_base_url } from "@/utils/get_base_url"
 
 const neue_montreal = NeueMontreal({
 	src: [
@@ -38,7 +39,7 @@ const neue_montreal = NeueMontreal({
 		},
 	],
 	variable: "--font-def",
-	// display: "swap",
+	display: "swap",
 })
 
 const ibm_plex_mono = IBM_Plex_Mono({
@@ -51,6 +52,16 @@ export const metadata: Metadata = {
 	title: "Passkeys Wallet",
 	description:
 		"Powerful developer toolkit designed to effortlessly bridge the web2/web3 (experience) gap by embedding a next-generation wallet in your site.",
+	openGraph: {
+		title: "Passkeys Wallet",
+		description:
+			"Powerful developer toolkit designed to effortlessly bridge the web2/web3 (experience) gap by embedding a next-generation wallet in your site.",
+		url: `${get_base_url()}`,
+		images: ["/images/passkeys_wallet.jpg"],
+		siteName: "passkeys wallet",
+		type: "website",
+	},
+	metadataBase: new URL(`${get_base_url()}`),
 }
 
 export default function RootLayout({
