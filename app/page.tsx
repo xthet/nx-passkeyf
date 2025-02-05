@@ -268,6 +268,8 @@ export default function Home() {
 						src="/videos/video_i.webm"
 						loop
 						muted
+						playsInline
+						controls={false}
 						className="aspect-[0.6/1] max-w-[300px] overflow-hidden object-cover object-center pskvid"
 					></video>
 				</div>
@@ -298,6 +300,8 @@ export default function Home() {
 						src="/videos/video_ii.webm"
 						loop
 						muted
+						playsInline
+						controls={false}
 						className="aspect-[0.6/1] max-w-[300px] overflow-hidden object-cover object-center  pskvid"
 					></video>
 				</div>
@@ -376,6 +380,8 @@ export default function Home() {
 						src="/videos/video_iv.mp4"
 						muted
 						loop
+						playsInline
+						controls={false}
 						className="aspect-[2.35/1] w-full overflow-hidden object-cover object-center pskvid"
 					></video>
 				</div>
@@ -436,6 +442,8 @@ export default function Home() {
 											src={e.src}
 											className="w-full aspect-[1.586/1] object-cover object-center pskvid"
 											loop
+											playsInline
+											controls={false}
 											muted
 										></video>
 									</div>
